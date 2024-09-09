@@ -16,8 +16,9 @@ namespace TesteBackendUol
 
             builder.Services.AddScoped<IUsuariosServico, UsuariosServico>();
 
-            builder.Services.AddHttpClient<IClient, UsuarioClient>();
-            
+            builder.Services.AddHttpClient<IVingadoresClient, VingadoresClient>();
+            builder.Services.AddHttpClient<ILigaDaJusticaClient, LigaDaJusticaClient>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

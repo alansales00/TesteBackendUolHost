@@ -9,15 +9,16 @@ namespace TesteBackendUol.Servicos
 {
     public class UsuariosServico : IUsuariosServico
     {
-        private readonly IClient _client;
+        private readonly ILigaDaJusticaClient _client;
 
-        public UsuariosServico(IClient client)
+        public UsuariosServico(ILigaDaJusticaClient client)
         {
             _client = client;
         }
         public async Task<string> CriarUsuario() 
         {
-            var codinomes = await _client.GetCodinomes();
+            var codinomes = await _client.GetCodinomesAsync();
+            
             return codinomes;
         }
 

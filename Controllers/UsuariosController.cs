@@ -16,14 +16,14 @@ namespace TesteBackendUol.Controllers
             _usuariosServico = usuariosServico;
         }
 
-        [HttpPost]
-        public ActionResult CriarUsuario()
+        [HttpGet]
+        public async Task<IActionResult> CriarUsuario()
         {
-            var resposta = _usuariosServico.CriarUsuario();
+            var resposta = await _usuariosServico.CriarUsuario();
             return Ok(resposta);
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult ListarUsuarios()
         {
             return Ok();

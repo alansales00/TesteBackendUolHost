@@ -31,3 +31,4 @@ D:\Área de Trabalho\StudyTests\TesteBackendUol\obj\Debug\net8.0\TesteBackendUol
 D:\Área de Trabalho\StudyTests\TesteBackendUol\obj\Debug\net8.0\TesteBackendUol.genruntimeconfig.cache
 D:\Área de Trabalho\StudyTests\TesteBackendUol\obj\Debug\net8.0\ref\TesteBackendUol.dll
 D:\Área de Trabalho\StudyTests\TesteBackendUol\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Área de Trabalho\StudyTests\TesteBackendUol\obj\Debug\net8.0\TesteBackendUol.sourcelink.json

@@ -1,11 +1,10 @@
-﻿using TesteBackendUol.Models;
+﻿using System.Collections.Generic;
+using TesteBackendUol.Models;
 
 namespace TesteBackendUol.Servicos
 {
     public interface IUsuariosServico
     {
-        public Task<string> CriarUsuario();
-
-        public void ListarUsuarios();
+        Task<VingadoresLista> CadastrarUsuario(Usuario usuario);
     }
 }

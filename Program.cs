@@ -1,4 +1,4 @@
-using TesteBackendUol.Clientes;
+
 using TesteBackendUol.Servicos;
 
 namespace TesteBackendUol
@@ -10,14 +10,16 @@ namespace TesteBackendUol
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddHttpClient("vingadores", client =>
+            {
+                client.BaseAddress = new Uri("https://raw.githubusercontent.com/uolhost/test-backEnd-Java/master/referencias/vingadores.json");
+                client.DefaultRequestHeaders.Add("Accept", "application/jason");
+            });
            
 
             builder.Services.AddControllers();
 
-            builder.Services.AddScoped<IUsuariosServico, UsuariosServico>();
-
-            builder.Services.AddHttpClient<IVingadoresClient, VingadoresClient>();
-            builder.Services.AddHttpClient<ILigaDaJusticaClient, LigaDaJusticaClient>();
+            builder.Services.AddScoped<IUsuariosServico, UsuarioVingadoresServico>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,5 +1,7 @@
 
+using TesteBackendUol.Data;
 using TesteBackendUol.Servicos;
+using Microsoft.EntityFrameworkCore;
 
 namespace TesteBackendUol
 {
@@ -16,6 +18,7 @@ namespace TesteBackendUol
                 client.DefaultRequestHeaders.Add("Accept", "application/jason");
             });
            
+            builder.Services.AddDbContext<ContextoAplicacao>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
 

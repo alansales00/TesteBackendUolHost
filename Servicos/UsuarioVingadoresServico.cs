@@ -1,7 +1,9 @@
 ﻿using TesteBackendUol.Models;
 using Newtonsoft.Json;
 using System.IO;
-using TesteBackendUol.Repositorios;
+using TesteBackendUol.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 
 namespace TesteBackendUol.Servicos
@@ -10,13 +12,13 @@ namespace TesteBackendUol.Servicos
     public class UsuarioVingadoresServico : IUsuariosServico
     {
         private readonly HttpClient _client;
-        private readonly IRepository _repository;
-        public UsuarioVingadoresServico(IHttpClientFactory clientFactory, IRepository repository)
+        private readonly ContextoAplicacao _contexto;
+        public UsuarioVingadoresServico(IHttpClientFactory clientFactory, ContextoAplicacao contexto)
         {
             _client =  clientFactory.CreateClient("vingadores");
-            _repository = repository;
+            _contexto = contexto;
         }
-        public async Task<VingadoresLista> CadastrarUsuario(Usuario usuario) 
+        public async Task<string> CadastrarUsuario(Usuario usuario) 
         {
             //puxar codinomes
             
@@ -25,14 +27,24 @@ namespace TesteBackendUol.Servicos
             VingadoresLista vingadores = JsonConvert.DeserializeObject<VingadoresLista>(jsonString);
 
             //verificar codinome
-
-            //atribuir codinome
-            //cadastrar ususario 
-
-            // repositorio pra cadastrar
-            _repository.CadastrarUsuario(usuario, vingadores);
-
-            return vingadores;
+            string codinomeUsuario;
+            for (int i = 0; i < vingadores.Vingadores.Count; i++)
+            {
+               var  codinome = vingadores.Vingadores[i].Codinome;
+               bool existeCodinome = _contexto.Usuarios.Any(p => p.Codinome == codinome);
+                if (!existeCodinome)
+                {
+                    codinomeUsuario = codinome;
+                    //atribuir codinome
+                    usuario.Codinome = codinomeUsuario;
+                    break;
+                }
+            }
+           
+            //cadastrar
+            _contexto.Usuarios.Add(usuario);
+            await _contexto.SaveChangesAsync();
+            return "ususario criado";
 
         }
     }

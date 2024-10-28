@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using TesteBackendUol.Models;
 
 namespace TesteBackendUol.Servicos
 {
     public interface IUsuariosServico
     {
-        Task<VingadoresLista> CadastrarUsuario(Usuario usuario);
+        Task<string> CadastrarUsuario(Usuario usuario);
     }
 }

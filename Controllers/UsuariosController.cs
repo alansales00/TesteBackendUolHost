@@ -21,7 +21,7 @@ namespace TesteBackendUol.Controllers
         {
             var resposta = await _usuariosServico.CadastrarUsuario(usuario);
             
-            return Ok(resposta.Vingadores[0].Codinome);
+            return Ok(resposta);
         }
     }
 }

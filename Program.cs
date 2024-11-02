@@ -1,7 +1,8 @@
 
 using TesteBackendUol.Data;
-using TesteBackendUol.Servicos;
+using TesteBackendUol.Services;
 using Microsoft.EntityFrameworkCore;
+using TesteBackendUol.Clients;
 
 namespace TesteBackendUol
 {
@@ -12,17 +13,15 @@ namespace TesteBackendUol
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddHttpClient("vingadores", client =>
-            {
-                client.BaseAddress = new Uri("https://raw.githubusercontent.com/uolhost/test-backEnd-Java/master/referencias/vingadores.json");
-                client.DefaultRequestHeaders.Add("Accept", "application/jason");
-            });
-           
+            builder.Services.AddHttpClient<AvengersClient>();
+            builder.Services.AddHttpClient<JusticeLeagueClient>();
+
             builder.Services.AddDbContext<ContextoAplicacao>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
 
-            builder.Services.AddScoped<IUsuariosServico, UsuarioVingadoresServico>();
+            builder.Services.AddScoped<IAvengersService, AvengersService>();
+            builder.Services.AddScoped<IJusticeLeagueService, JusticeLeagueService>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

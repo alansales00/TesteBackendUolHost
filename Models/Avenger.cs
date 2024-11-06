@@ -1,6 +1,6 @@
 ﻿namespace TesteBackendUol.Models
 {
-    public class CodinomeClass
+    public class Avenger
     {
         public string Codinome { get; set; } = string.Empty;
     }

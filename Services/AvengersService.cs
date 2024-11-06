@@ -15,47 +15,41 @@ namespace TesteBackendUol.Services
     {
         private readonly AvengersClient _client;
         private readonly ContextoAplicacao _contexto;
-        public AvengersService(ContextoAplicacao contexto, AvengersClient client)
+        private readonly ICommonService _commonService;
+        public AvengersService(ContextoAplicacao contexto, AvengersClient client, ICommonService commonService)
         {
             _contexto = contexto;
             _client = client;
+            _commonService = commonService;
         }
         public async Task<string> RegisterUser(User usuario)
         {
             //puxar codinomes
-            var codinamesString = await _client.GetContent();
-            /*ListaCodinomes codinomesLista = JsonConvert.DeserializeObject<ListaCodinomes>(codinamesString);
+            var response = await _client.GetContent();
+            var codinomes = JsonConvert.DeserializeObject<Avengers>(response);
 
-
-            string codinomeUsuario;
-
-
-
-
-            for (int i = 0; i < codinomesLista.Vingadores.Count; i++)
+            foreach (var avenger in codinomes.Vingadores)
             {
-                var codinome = codinomesLista.Vingadores[i].Codinome;
-                bool existeCodinome = _contexto.Usuarios.Any(p => p.Codinome == codinome);
+                bool existeCodinome = _contexto.Usuarios.Any(p => p.Codinome == avenger.Codinome);
                 if (!existeCodinome)
                 {
-                    codinomeUsuario = codinome;
-                    //atribuir codinome
-                    usuario.Codinome = codinomeUsuario;
+                    usuario.Codinome = avenger.Codinome;
                     _contexto.Usuarios.Add(usuario);
                     await _contexto.SaveChangesAsync();
-                    break;
+                    return "USUÁRIO CADASTRADO COM SUCESSO";
                 }
-                if (i == codinomesLista.Vingadores.Count - 1 && existeCodinome)
-                {
-                    return "Sem codinomes disponiveis";
-                }
+
             }
 
-            //cadastrar*/
-
-            return codinamesString;
-
+            return "Sem codinomes disponiveis";
         }
+
+        public async Task<string> DeleteUser(int id)
+        { 
+            var response = await _commonService.DeleteUser(id);
+            return response;
+        }
+
         // public async Task<ActionResult<Usuario>> ListarUsuarios()
         // {
         //    return await _contexto.Usuarios.ToListAsync();

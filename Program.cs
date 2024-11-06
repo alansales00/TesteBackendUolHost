@@ -22,6 +22,7 @@ namespace TesteBackendUol
 
             builder.Services.AddScoped<IAvengersService, AvengersService>();
             builder.Services.AddScoped<IJusticeLeagueService, JusticeLeagueService>();
+            builder.Services.AddScoped<ICommonService, CommonService>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
